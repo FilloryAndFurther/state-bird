@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "state-bird"
+version = "0.1.0"
+description = ""
+authors = ["FilloryAndFurther <103888803+FilloryAndFurther@users.noreply.github.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+click = "^8.1.7"
+networkx = "^3.1"
+matplotlib = "^3.8.0"
+
+[tool.poetry.scripts]
+main = "state_bird.cli:main"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
