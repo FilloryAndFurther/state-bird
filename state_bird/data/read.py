@@ -2,7 +2,7 @@
 # Path: app/data/read.py
 
 import sqlite3
-
+import json
 
 # Create a function that returns all the states from the states table
 def get_states():
@@ -22,3 +22,21 @@ def get_events():
     events = cur.fetchall()
     con.close()
     return events
+
+# Function that checks if a module exists in the database
+def module_exists(name):
+    con = sqlite3.connect('state_bird/data/database.db')
+    cur = con.cursor()
+    cur.execute("SELECT * FROM modules WHERE name=?", (name,))
+    module = cur.fetchone()
+    con.close()
+    if module:
+        return True
+    else:
+        return False
+
+# Function that returns the current module from config.json
+def get_current_module():
+    with open('state_bird/data/config.json', 'r') as f:
+        config = json.load(f)
+        return config['current_module']
