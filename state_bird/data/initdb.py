@@ -6,21 +6,21 @@ def init_db():
         con = sqlite3.connect('state_bird/data/database.db')
         cur = con.cursor()
         cur.execute("""CREATE TABLE IF NOT EXISTS states 
-                    (id INT PRIMARY KEY, 
+                    (id INTEGER PRIMARY KEY, 
                     module_id INT NOT NULL,
                     name TEXT NOT NULL)""")
         
         cur.execute("""CREATE TABLE IF NOT EXISTS modules 
-                    (id INT PRIMARY KEY, 
+                    (id INTEGER PRIMARY KEY, 
                     name TEXT NOT NULL)""")
         
 
         cur.execute("""CREATE TABLE IF NOT EXISTS events (
-        id INT PRIMARY KEY,
-        module_id INT NOT NULL,
+        id INTEGER PRIMARY KEY,
+        module_id INTEGER NOT NULL,
         name TEXT NOT NULL,
-        from_state INT NOT NULL,
-        to_state INT NOT NULL)""")
+        from_state INTEGER NOT NULL,
+        to_state INTEGER NOT NULL)""")
         con.commit()
         con.close()
     except sqlite3.Error as e:

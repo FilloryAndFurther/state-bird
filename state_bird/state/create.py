@@ -1,9 +1,10 @@
-import click
-import state_bird.data.create as create
+import state_bird.data.write
+import state_bird.data.read
 
-
-@click.command()
-@click.argument('name')
-def add_state(name):
-    create.add_state(name)
-    click.echo("Added state {}".format(name))
+def create_event(name, from_state, to_state):
+    current_id = state_bird.data.read.get_current_module(get_id=True)
+    if state_bird.data.read.state_exists(from_state, current_id) and state_bird.data.read.state_exists(to_state, current_id):
+        state_bird.data.create.add_event(name, from_state, to_state, current_id)
+        return True
+    else:
+        return False
