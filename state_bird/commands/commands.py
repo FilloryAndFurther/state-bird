@@ -5,7 +5,6 @@ import state_bird.data.read
 import state_bird.data.write
 import state_bird.state.create
 import state_bird.state.graph as graph
-import json
 
 @click.command()
 def init():
