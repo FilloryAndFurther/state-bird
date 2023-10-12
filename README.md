@@ -15,7 +15,6 @@ to see a list of commands.
 
 For any command, you can type the `--help` flag to see the options available. \
 For example: `main create-event --help`\
-
 Code generation commands can be seen under\
 `gen`
 

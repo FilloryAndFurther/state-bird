@@ -27,10 +27,11 @@ def create_module(name):
     click.echo("Created module {}".format(name))
 
 @click.command()
-@click.argument('name')
+@click.option('--name', '-n', multiple=True, help='The module(s) to add the state to')
 def add_state(name):
-    create.add_state(name)
-    click.echo("Added state {}".format(name))
+    for n in name:
+        create.add_state(n)
+        click.echo("Added state {}".format(n))
 
 
 @click.command()
