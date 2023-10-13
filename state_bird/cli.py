@@ -10,6 +10,8 @@ from state_bird.commands.commands import (
     add_event,
     show_graph,
     list_modules,
+    delete_event,
+    delete_state
 )
 
 
@@ -27,6 +29,8 @@ main.add_command(get_states)
 main.add_command(add_event)
 main.add_command(show_graph)
 main.add_command(list_modules)
+main.add_command(delete_event)
+main.add_command(delete_state)
 
 if __name__ == '__main__':
     main.add_command(clear)

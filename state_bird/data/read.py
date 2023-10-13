@@ -75,6 +75,26 @@ def get_events(current_module=True):
     return events
 
 
+def get_events_by_module_name(module_name):
+    """
+    Retrieve events from the database for a given module name.
+
+    Args:
+        module_name (str): The name of the module to retrieve events for.
+
+    Returns:
+        list: A list of tuples representing the events retrieved from the
+        database.
+    """
+    con = sqlite3.connect('state_bird/data/database.db')
+    cur = con.cursor()
+    cur.execute("SELECT * FROM events WHERE module_id IN (SELECT id FROM modules WHERE name=?)",
+                (module_name,))
+    events = cur.fetchall()
+    con.close()
+    return events
+
+
 def module_exists(name):
     """
     Check if a module exists in the database.

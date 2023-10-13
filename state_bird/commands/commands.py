@@ -3,6 +3,7 @@ from state_bird.data.initdb import init_db, clear_db
 import state_bird.data.create as create
 import state_bird.data.read
 import state_bird.data.write
+import state_bird.data.update
 import state_bird.state.create
 import state_bird.state.graph as graph
 
@@ -96,3 +97,23 @@ def list_modules():
     modules = state_bird.data.read.get_all_modules()
     for module in modules:
         click.echo(module)
+
+
+@click.command()
+@click.argument('name')
+def delete_event(name):
+    res = state_bird.data.update.delete_event(name)
+    if res:
+        click.echo(f"Deleted event {name}")
+    else:
+        click.echo(f"Event {name} does not exist")
+
+
+@click.command()
+@click.argument('name')
+def delete_state(name):
+    res = state_bird.data.update.delete_state(name)
+    if res:
+        click.echo(f"Deleted state {name}")
+    else:
+        click.echo(f"State {name} does not exist")
