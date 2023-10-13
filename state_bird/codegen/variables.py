@@ -19,7 +19,7 @@ def create_state_rows(module_name):
     # Bool aliases
     states = get_states_by_module_name(module_name)
     for i, state in enumerate(states):
-        alias_string = f'{module_name}_s{i+1},BOOL,,,,Var,ReadWrite,{state[2]},{module_name}_state.{i+1},False'
+        alias_string = f'{module_name}_s{i+1},BOOL,,,,Var,ReadWrite,{state[2]},{module_name}_state.{state[3]},False'
         rows.append(alias_string)
     return rows
 
@@ -50,7 +50,7 @@ def create_event_rows(module_name):
     rows.append(main_string)
     events = get_events_by_module_name(module_name)
     for i, event in enumerate(events):
-        event_string = f'{module_name}_e{i+1},BOOL,,,,Var,ReadWrite,{event[2]},{module_name}_event.{i+1},False'
+        event_string = f'{module_name}_e{i+1},BOOL,,,,Var,ReadWrite,{event[2]},{module_name}_event.{event[5]},False'
         rows.append(event_string)
     return rows
 

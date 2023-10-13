@@ -13,6 +13,8 @@ def add_state(name, bit=-1):
                               (module_id[0],)).fetchone()[0]
         bit_sum = cur.execute("SELECT SUM(bit) FROM states WHERE module_id=?",
                               (module_id[0],)).fetchone()[0]
+        # If the highest bit is 6, then the sum of the bits should be 21
+        # But if the sum is 17, then 4 is missing, so fill that in first.
         if max_bit is None:
             new_bit = 1
         elif bit_sum < (max_bit)*(max_bit+1)/2:
@@ -22,21 +24,32 @@ def add_state(name, bit=-1):
         print(new_bit)
         cur.execute("INSERT INTO states (module_id, name, bit) VALUES \
                     (?, ?, ?)", (module_id[0], name, new_bit))
-    # current_module = read.get_current_module()
-    # cur.execute("SELECT id FROM modules WHERE name=?", (current_module,))
-    # module_id = cur.fetchone()
-    # cur.execute("INSERT INTO states (module_id, name, bit) VALUES \
-    #             (?, ?, ?)", (module_id[0], name, -1))
     con.commit()
     con.close()
 
 
 # Create a function that adds an event to the events table
-def add_event(name, from_state, to_state, module_id):
+def add_event(name, from_state, to_state, module_id, bit=-1):
     con = sqlite3.connect('state_bird/data/database.db')
     cur = con.cursor()
-    cur.execute("INSERT INTO events (name, from_state, to_state, module_id) \
-                VALUES (?, ?, ?, ?)", (name, from_state, to_state, module_id))
+    if bit == -1:
+        cur.execute("SELECT id FROM modules WHERE name=?",
+                    (read.get_current_module(),))
+        module_id = cur.fetchone()
+        max_bit = cur.execute("SELECT MAX(bit) FROM events WHERE module_id=?",
+                              (module_id[0],)).fetchone()[0]
+        bit_sum = cur.execute("SELECT SUM(bit) FROM events WHERE module_id=?",
+                              (module_id[0],)).fetchone()[0]
+        if max_bit is None:
+            new_bit = 1
+        elif bit_sum < (max_bit)*(max_bit+1)/2:
+            new_bit = (max_bit)*(max_bit+1)/2 - bit_sum
+        else:
+            new_bit = max_bit + 1
+        print(new_bit)
+        cur.execute("INSERT INTO events (name, from_state, to_state, module_id\
+            ,bit) VALUES (?, ?, ?, ?, ?)", (name, from_state, to_state,
+                                            module_id[0], new_bit))
     con.commit()
     con.close()
 
