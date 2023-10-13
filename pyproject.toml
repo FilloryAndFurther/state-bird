@@ -13,7 +13,7 @@ matplotlib = "^3.8.0"
 
 [tool.poetry.scripts]
 main = "state_bird.cli:main"
-gen = "state_bird.codegen.gen:test"
+gen = "state_bird.codegen.gen:gen_main_group"
 
 [build-system]
 requires = ["poetry-core"]
