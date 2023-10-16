@@ -160,6 +160,30 @@ def get_current_module(get_id=False):
         return config['current_module']
 
 
+def get_project_name():
+    """
+    Retrieve the name of the project from the config file.
+
+    Returns:
+        str: The name of the project.
+    """
+    with open('state_bird/data/config.json', 'r') as f:
+        config = json.load(f)
+        return config['project_name']
+
+
+def get_number_of_slots():
+    """
+    Retrieve the number of slots from the config file.
+
+    Returns:
+        int: The number of slots.
+    """
+    with open('state_bird/data/config.json', 'r') as f:
+        config = json.load(f)
+        return config['input_slots']
+
+
 def state_exists(name, module_id):
     """
     Check if a state exists in the database.
@@ -215,3 +239,20 @@ def get_state_by_name(name):
     state = cur.fetchone()
     con.close()
     return state
+
+
+def get_inputs():
+    """
+    Retrieve all inputs from the database.
+
+    Returns:
+        list: A list of tuples representing the inputs retrieved from the
+        database.
+    """
+    con = sqlite3.connect('state_bird/data/database.db')
+    cur = con.cursor()
+    cur.execute("SELECT * FROM inputs")
+    inputs = cur.fetchall()
+    con.close()
+    return inputs
+

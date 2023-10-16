@@ -10,6 +10,8 @@ from .state_ladder import (
     generate_state_transition_lines
 )
 
+from .io import write_io_lines, write_input_variables
+
 import state_bird.data.read
 
 
@@ -32,3 +34,13 @@ def generate_var_csv(module_name):
 def generate_ladder(module_name):
     generate_event_lines(module_name)
     generate_state_transition_lines(module_name)
+
+
+@click.command()
+def generate_input_variables():
+    write_input_variables()
+
+
+@click.command()
+def generate_input_ladder():
+    write_io_lines()

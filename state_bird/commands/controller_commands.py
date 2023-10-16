@@ -18,3 +18,9 @@ def add_output():
     name = click.prompt("Output name")
     slot = click.prompt("Output slot")
     state_bird.data.create.create_output(name, slot)
+
+
+@click.command()
+@click.argument('name')
+def set_project_name(name):
+    state_bird.write.set_current_project(name)

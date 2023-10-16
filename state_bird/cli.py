@@ -16,7 +16,8 @@ from state_bird.commands.state_commands import (
 
 from state_bird.commands.controller_commands import (
     add_input,
-    add_output
+    add_output,
+    set_project_name
 )
 
 
@@ -44,6 +45,7 @@ state.add_command(delete_state)
 
 controller.add_command(add_input)
 controller.add_command(add_output)
+controller.add_command(set_project_name)
 
 if __name__ == '__main__':
     state.add_command(clear)
