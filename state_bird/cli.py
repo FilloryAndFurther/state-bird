@@ -1,6 +1,6 @@
 import click
 
-from state_bird.commands.commands import (
+from state_bird.commands.state_commands import (
     init,
     clear,
     create_module,
@@ -14,31 +14,44 @@ from state_bird.commands.commands import (
     delete_state
 )
 
+from state_bird.commands.controller_commands import (
+    add_input,
+    add_output
+)
+
 
 @click.group()
-def main():
+def controller():
     pass
 
 
-main.add_command(clear)
-main.add_command(init)
-main.add_command(create_module)
-main.add_command(add_state)
-main.add_command(set_current_module)
-main.add_command(get_states)
-main.add_command(add_event)
-main.add_command(show_graph)
-main.add_command(list_modules)
-main.add_command(delete_event)
-main.add_command(delete_state)
+@click.group()
+def state():
+    pass
+
+
+state.add_command(clear)
+state.add_command(init)
+state.add_command(create_module)
+state.add_command(add_state)
+state.add_command(set_current_module)
+state.add_command(get_states)
+state.add_command(add_event)
+state.add_command(show_graph)
+state.add_command(list_modules)
+state.add_command(delete_event)
+state.add_command(delete_state)
+
+controller.add_command(add_input)
+controller.add_command(add_output)
 
 if __name__ == '__main__':
-    main.add_command(clear)
-    main.add_command(init)
-    main.add_command(create_module)
-    main.add_command(add_state)
-    main.add_command(set_current_module)
-    main.add_command(get_states)
-    main.add_command(add_event)
-    main.add_command(show_graph)
-    main()
+    state.add_command(clear)
+    state.add_command(init)
+    state.add_command(create_module)
+    state.add_command(add_state)
+    state.add_command(set_current_module)
+    state.add_command(get_states)
+    state.add_command(add_event)
+    state.add_command(show_graph)
+    state()

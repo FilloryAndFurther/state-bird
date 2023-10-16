@@ -12,8 +12,9 @@ networkx = "^3.1"
 matplotlib = "^3.8.0"
 
 [tool.poetry.scripts]
-main = "state_bird.cli:main"
+state = "state_bird.cli:state"
 gen = "state_bird.codegen.gen:gen_main_group"
+controller = "state_bird.cli:controller"
 
 [build-system]
 requires = ["poetry-core"]

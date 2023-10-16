@@ -61,3 +61,36 @@ def create_module(name):
     cur.execute("INSERT INTO modules (name) VALUES (?)", (name,))
     con.commit()
     con.close()
+
+
+def create_input(name, slot):
+    name = f'DI_{name}'
+    con = sqlite3.connect('state_bird/data/database.db')
+    cur = con.cursor()
+    cur.execute("INSERT INTO inputs (name, slot) VALUES (?, ?)", (name, slot))
+    con.commit()
+    con.close()
+
+
+def create_output(name, slot):
+    con = sqlite3.connect('state_bird/data/database.db')
+    cur = con.cursor()
+    cur.execute("INSERT INTO outputs (name, slot) VALUES (?, ?)", (name, slot))
+    con.commit()
+    con.close()
+
+
+def delete_input(name):
+    con = sqlite3.connect('state_bird/data/database.db')
+    cur = con.cursor()
+    cur.execute("DELETE FROM inputs WHERE name=?", (name,))
+    con.commit()
+    con.close()
+
+
+def delete_output(name):
+    con = sqlite3.connect('state_bird/data/database.db')
+    cur = con.cursor()
+    cur.execute("DELETE FROM outputs WHERE name=?", (name,))
+    con.commit()
+    con.close()

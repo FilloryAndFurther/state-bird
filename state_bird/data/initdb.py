@@ -30,6 +30,17 @@ def init_db():
         from_state INTEGER NOT NULL,
         to_state INTEGER NOT NULL,
         bit INT NOT NULL)""")
+        
+        cur.execute("""CREATE TABLE IF NOT EXISTS inputs (
+        id INTEGER PRIMARY KEY,
+        name TEXT NOT NULL,
+        slot INTEGER NOT NULL)""")
+        
+        cur.execute("""CREATE TABLE IF NOT EXISTS outputs (
+        id INTEGER PRIMARY KEY,
+        name TEXT NOT NULL,
+        slot INTEGER NOT NULL)""")
+        
         con.commit()
         con.close()
     except sqlite3.Error as e:

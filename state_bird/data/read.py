@@ -197,3 +197,21 @@ def get_all_modules():
     modules = cur.fetchall()
     con.close()
     return modules
+
+
+def get_state_by_name(name):
+    """
+    Retrieve a state from the database by its name.
+
+    Args:
+        name (str): The name of the state to retrieve.
+
+    Returns:
+        tuple: A tuple representing the state retrieved from the database.
+    """
+    con = sqlite3.connect('state_bird/data/database.db')
+    cur = con.cursor()
+    cur.execute("SELECT * FROM states WHERE name=?", (name,))
+    state = cur.fetchone()
+    con.close()
+    return state
