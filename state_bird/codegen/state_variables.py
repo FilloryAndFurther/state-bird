@@ -17,7 +17,7 @@ def create_state_rows(module_name):
     rows.append(main_string)
     ons_string = (
         f'{module_name}_ons,BOOL,,,,Var,ReadWrite,'
-        f',oneshot,{module_name}_state.0,False'
+        f'oneshot,{module_name}_state.0,False'
     )
     rows.append(ons_string)
     states = get_states_by_module_name(module_name)

@@ -10,11 +10,15 @@ python = "^3.11"
 click = "^8.1.7"
 networkx = "^3.1"
 matplotlib = "^3.8.0"
+dearpygui = "^1.10.1"
+customtkinter = "^5.2.0"
+ttkbootstrap = "^1.10.1"
 
 [tool.poetry.scripts]
 state = "state_bird.cli:state"
 gen = "state_bird.codegen.gen:gen_main_group"
 controller = "state_bird.cli:controller"
+app = "state_bird.app.app:main"
 
 [build-system]
 requires = ["poetry-core"]
