@@ -43,6 +43,14 @@ def init_db():
         name TEXT NOT NULL,
         slot INTEGER NOT NULL)""")
         
+        # create a 'commands' table with module_id, name, event_id, bit
+        cur.execute("""CREATE TABLE IF NOT EXISTS commands (
+        id INTEGER PRIMARY KEY,
+        module_id INTEGER NOT NULL,
+        name TEXT NOT NULL,
+        event_id INTEGER NOT NULL,
+        bit INT NOT NULL)""")
+        
         con.commit()
         con.close()
     except sqlite3.Error as e:
