@@ -11,7 +11,7 @@ from .state_ladder import (
 )
 
 from .io import write_io_lines, write_input_variables
-
+from .faults import auto_create_verify_faults
 import state_bird.data.read
 
 
@@ -44,3 +44,9 @@ def generate_input_variables():
 @click.command()
 def generate_input_ladder():
     write_io_lines()
+
+
+@click.command()
+def generate_faults():
+    auto_create_verify_faults()
+    click.echo('Faults generated')

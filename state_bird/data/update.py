@@ -38,3 +38,22 @@ def delete_state(name):
     con.commit()
     con.close()
     return True
+
+
+def update_input_name(old_name, new_name):
+    """
+    Update the name of an input in the database.
+
+    Args:
+        old_name (str): The old name of the input.
+        new_name (str): The new name of the input.
+
+    Returns:
+        bool: True if the input was updated, False otherwise.
+    """
+    con = sqlite3.connect('state_bird/data/database.db')
+    cur = con.cursor()
+    cur.execute("UPDATE inputs SET name=? WHERE name=?", (new_name, old_name))
+    con.commit()
+    con.close()
+    return True

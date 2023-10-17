@@ -167,7 +167,7 @@ def get_project_name():
     Returns:
         str: The name of the project.
     """
-    with open('state_bird/data/config.json', 'r') as f:
+    with open('state_bird/config.json', 'r') as f:
         config = json.load(f)
         return config['project_name']
 
@@ -179,9 +179,20 @@ def get_number_of_slots():
     Returns:
         int: The number of slots.
     """
-    with open('state_bird/data/config.json', 'r') as f:
+    with open('state_bird/config.json', 'r') as f:
         config = json.load(f)
         return config['input_slots']
+
+def get_number_of_output_slots():
+    """
+    Retrieve the number of slots from the config file.
+
+    Returns:
+        int: The number of slots.
+    """
+    with open('state_bird/config.json', 'r') as f:
+        config = json.load(f)
+        return config['output_slots']
 
 
 def state_exists(name, module_id):
@@ -256,3 +267,36 @@ def get_inputs():
     con.close()
     return inputs
 
+
+def get_outputs():
+    """
+    Retrieve all outputs from the database.
+
+    Returns:
+        list: A list of tuples representing the outputs retrieved from the
+        database.
+    """
+    con = sqlite3.connect('state_bird/data/database.db')
+    cur = con.cursor()
+    cur.execute("SELECT * FROM outputs")
+    outputs = cur.fetchall()
+    con.close()
+    return outputs
+
+
+def get_output_by_name(name):
+    """
+    Retrieve an output from the database by its name.
+
+    Args:
+        name (str): The name of the output to retrieve.
+
+    Returns:
+        tuple: A tuple representing the output retrieved from the database.
+    """
+    con = sqlite3.connect('state_bird/data/database.db')
+    cur = con.cursor()
+    cur.execute("SELECT * FROM outputs WHERE name=?", (name,))
+    output = cur.fetchone()
+    con.close()
+    return output
