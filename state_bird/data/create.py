@@ -5,10 +5,10 @@ import state_bird.data.read as read
 def add_state(name, bit=-1):
     con = sqlite3.connect('state_bird/data/database.db')
     cur = con.cursor()
+    cur.execute("SELECT id FROM modules WHERE name=?",
+                (read.get_current_module(),))
+    module_id = cur.fetchone()
     if bit == -1:
-        cur.execute("SELECT id FROM modules WHERE name=?",
-                    (read.get_current_module(),))
-        module_id = cur.fetchone()
         max_bit = cur.execute("SELECT MAX(bit) FROM states WHERE module_id=?",
                               (module_id[0],)).fetchone()[0]
         bit_sum = cur.execute("SELECT SUM(bit) FROM states WHERE module_id=?",
@@ -21,9 +21,10 @@ def add_state(name, bit=-1):
             new_bit = (max_bit)*(max_bit+1)/2 - bit_sum
         else:
             new_bit = max_bit + 1
-        print(new_bit)
-        cur.execute("INSERT INTO states (module_id, name, bit) VALUES \
-                    (?, ?, ?)", (module_id[0], name, new_bit))
+    else:
+        new_bit = bit
+    cur.execute("INSERT INTO states (module_id, name, bit) VALUES \
+                (?, ?, ?)", (module_id[0], name, new_bit))
     con.commit()
     con.close()
 
@@ -64,7 +65,7 @@ def create_module(name):
 
 
 def create_input(name, slot):
-    name = f'DI_{name}'
+    name = f'{name}'
     con = sqlite3.connect('state_bird/data/database.db')
     cur = con.cursor()
     cur.execute("INSERT INTO inputs (name, slot) VALUES (?, ?)", (name, slot))

@@ -21,6 +21,7 @@ def generate_var_csv(module_name):
     if module_name == 'all':
         modules = state_bird.data.read.get_all_modules()
         for module in modules:
+            copy_csv_template(module[1])
             write_state_rows(module[1])
             write_event_rows(module[1])
     else:
@@ -32,8 +33,14 @@ def generate_var_csv(module_name):
 @click.command()
 @click.option('--module-name', '-m', default='all')
 def generate_ladder(module_name):
-    generate_event_lines(module_name)
-    generate_state_transition_lines(module_name)
+    if module_name == 'all':
+        modules = state_bird.data.read.get_all_modules()
+        for module in modules:
+            generate_event_lines(module[1])
+            generate_state_transition_lines(module[1])
+    else:
+        generate_event_lines(module_name)
+        generate_state_transition_lines(module_name)
 
 
 @click.command()

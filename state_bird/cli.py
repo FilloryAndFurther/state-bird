@@ -11,7 +11,8 @@ from state_bird.commands.state_commands import (
     show_graph,
     list_modules,
     delete_event,
-    delete_state
+    delete_state,
+    copy_module
 )
 
 from state_bird.commands.controller_commands import (
@@ -42,6 +43,7 @@ state.add_command(show_graph)
 state.add_command(list_modules)
 state.add_command(delete_event)
 state.add_command(delete_state)
+state.add_command(copy_module)
 
 controller.add_command(add_input)
 controller.add_command(add_output)

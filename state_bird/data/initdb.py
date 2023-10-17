@@ -1,6 +1,8 @@
 import sqlite3
 import os
 
+import state_bird.util.file_util as file_util
+
 
 def init_db():
     """
@@ -45,6 +47,7 @@ def init_db():
         con.close()
     except sqlite3.Error as e:
         print(e)
+    file_util.copy_csv_template("main")
 
 
 def clear_db():

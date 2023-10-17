@@ -1,7 +1,5 @@
-import os
-from pathlib import Path
-
 from state_bird.data.read import get_events_by_module_name, get_state_by_name
+from state_bird.util.file_util import generate_file_path
 
 
 def generate_event_line_strings(module_name):
@@ -10,7 +8,6 @@ def generate_event_line_strings(module_name):
     for i, event in enumerate(sorted(events, key=lambda x: x[5])):
         s = f'AFI OTE {module_name}_e{i+1}'
         lines.append(s)
-    print(lines)
     return lines
 
 
@@ -25,12 +22,8 @@ def write_event_lines(module_name):
         None
     """
     lines = generate_event_line_strings(module_name)
-    documents_folder = Path(os.path.expanduser("~/Documents"))
-    folder_path = documents_folder / 'state_bird_storage'
-    if not os.path.exists(folder_path):
-        os.makedirs(folder_path)
-    file_name = f'{module_name}_ladder.txt'
-    file_path = documents_folder / 'state_bird_storage' / file_name
+
+    file_path = generate_file_path(f"{module_name}_ladder", 'ld')
     with open(file_path, 'a') as f:
         for line in lines:
             f.write(line + '\n')
@@ -59,12 +52,7 @@ def generate_state_transition_line_strings(module_name):
 
 def write_state_transition_lines(module_name):
     lines = generate_state_transition_line_strings(module_name)
-    documents_folder = Path(os.path.expanduser("~/Documents"))
-    folder_path = documents_folder / 'state_bird_storage'
-    if not os.path.exists(folder_path):
-        os.makedirs(folder_path)
-    file_name = f'{module_name}_ladder.txt'
-    file_path = documents_folder / 'state_bird_storage' / file_name
+    file_path = generate_file_path(f"{module_name}_ladder", 'ld')
     with open(file_path, 'a') as f:
         for line in lines:
             f.write(line + '\n')

@@ -28,6 +28,7 @@ def clear():
 @click.argument('name')
 def create_module(name):
     create.create_module(name)
+    state_bird.data.write.set_current_module(name)
     click.echo("Created module {}".format(name))
 
 
@@ -119,3 +120,12 @@ def delete_state(name):
         click.echo(f"State {name} does not exist")
 
 
+@click.command()
+@click.argument('name')
+@click.argument('new_name')
+def copy_module(name, new_name):
+    res = state_bird.state.create.copy_module(name, new_name)
+    if res:
+        click.echo(f"Copied module {name}")
+    else:
+        click.echo(f"Module {name} does not exist")

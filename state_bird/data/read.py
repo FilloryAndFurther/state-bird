@@ -145,7 +145,7 @@ def get_current_module(get_id=False):
     Returns:
         str or int: The name or ID of the current module.
     """
-    with open('state_bird/data/config.json', 'r') as f:
+    with open('state_bird/config.json', 'r') as f:
         config = json.load(f)
         con = sqlite3.connect('state_bird/data/database.db')
         cur = con.cursor()
