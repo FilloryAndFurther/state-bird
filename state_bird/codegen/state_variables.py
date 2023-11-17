@@ -62,9 +62,38 @@ def create_event_rows(module_name):
 def write_event_rows(module_name):
     """
     Writes the rows of the event table to a csv file in a documents folder.
-    """
+    """ 
     file_path = generate_file_path(f"{module_name}_var", 'csv')
     rows = create_event_rows(module_name)
+    with open(file_path, 'a') as f:
+        for row in rows:
+            f.write(row + '\n')
+    return True
+
+
+def create_command_rows(module_name):
+    """
+    Creates a list of strings that represent the rows of the command word table
+    """
+    rows = []
+    main_string = f'{module_name}_command,DINT,,,,Var,ReadWrite,,,False'
+    rows.append(main_string)
+    for i in range(16):
+        command_string = (
+            f'{module_name}_c{i},BOOL,,,,Var,ReadWrite,'
+            f'command bit {i},{module_name}_command.{i},False'
+        )
+        rows.append(command_string)
+    return rows
+
+
+def write_command_rows(module_name):
+    """
+    Writes the rows of the command word table to a csv file in a documents
+    folder.
+    """
+    file_path = generate_file_path(f"{module_name}_var", 'csv')
+    rows = create_command_rows(module_name)
     with open(file_path, 'a') as f:
         for row in rows:
             f.write(row + '\n')

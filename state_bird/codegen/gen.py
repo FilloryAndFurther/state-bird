@@ -5,7 +5,8 @@ from .commands import (
     generate_ladder,
     generate_input_ladder,
     generate_input_variables,
-    generate_faults
+    generate_faults,
+    generate_all
 )
 
 
@@ -19,6 +20,7 @@ gen_main_group.add_command(generate_ladder)
 gen_main_group.add_command(generate_input_ladder)
 gen_main_group.add_command(generate_input_variables)
 gen_main_group.add_command(generate_faults)
+gen_main_group.add_command(generate_all)
 
 if __name__ == '__main__':
     gen_main_group()

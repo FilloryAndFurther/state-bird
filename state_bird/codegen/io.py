@@ -1,4 +1,5 @@
 from state_bird.util.file_util import generate_file_path, copy_csv_template
+# import state_bird.codegen.variables as variables
 import state_bird.data.read
 
 
@@ -42,3 +43,18 @@ def write_input_variables():
     with open(file_path, 'a') as f:
         for line in lines:
             f.write(line + '\n')
+
+
+# def gen_output_variables():
+#     outputs = state_bird.data.read.get_outputs()
+#     variables.copy_csv_template('output_var')
+#     for output in outputs:
+#         name = output[1]
+#         slot = output[2]
+#         num_output_slots = state_bird.data.read.get_number_of_output_slots()
+#         if slot < num_output_slots:
+#             alias_name = f'_IO_EM_DO_{str(slot).zfill(2)}'
+#         else:
+#             alias_name = f'_IO_P1_DO_{str(slot - num_output_slots).zfill(2)}'
+#         variables.write_variable_to_file(alias_name, 'output_var', 'BOOL',
+#                                          '', name)

@@ -43,8 +43,9 @@ def generate_state_transition_line_strings(module_name):
         from_state_bit = from_state[3]
         to_state_bit = to_state[3]
         s = (
-            f"XIC {module_name}_s{from_state_bit} XIC {module_name}_ons BST "
-            f"MOV 0 {module_name}_state NXB OTS {module_name}_s{to_state_bit} BND"
+            f"XIC {module_name}_s{from_state_bit} XIC {module_name}_ons "
+            f"XIC {module_name}_e{event[5]} BST MOV 0 {module_name}_state NXB "
+            f"OTS {module_name}_s{to_state_bit} BND"
         )
         lines.append(s)
     return lines
