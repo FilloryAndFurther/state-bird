@@ -8,7 +8,8 @@ from .state_variables import (
 )
 from .state_ladder import (
     generate_event_lines,
-    generate_state_transition_lines
+    generate_state_transition_lines,
+    generate_state_action_lines
 )
 
 from .io import write_io_lines, write_input_variables
@@ -74,6 +75,7 @@ def generate_all():
     for module in modules:
         generate_event_lines(module[1])
         generate_state_transition_lines(module[1])
+        generate_state_action_lines(module[1])
     write_input_variables()
     write_io_lines()
     auto_create_verify_faults()
